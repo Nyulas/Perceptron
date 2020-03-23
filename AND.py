@@ -7,6 +7,9 @@ data = item.array([[0, 0, 0], [0, 1, 0], [1, 0, 0], [1, 1, 1]])
 labels = item.array([0, 0, 0, 1])
 
 
+def hardlim(val):
+    return 0 if val < 0 else 1
+
 def perceptron_learning(data, result):
 
     N, n = data.shape
@@ -32,7 +35,7 @@ def perceptron_learning(data, result):
         E = 0
 
         for i in range(N):
-            yi = item.sign(item.dot(data[i], w))
+            yi = item.sign(hardlim(data[i], w))
             ei = labels[i] - yi
             w += lr * ei * data[i].reshape(n, 1)
             E += ei ** 2
